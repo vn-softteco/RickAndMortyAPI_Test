@@ -4,9 +4,10 @@ import { Button, TextField } from "@mui/material";
 import { FormControl } from "@/components";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useNavigate } from "react-router-dom";
-import { useVerifyMockUseMutation } from "@/hooks/auth.mock.hooks.ts";
 import { TokenService } from "@/services";
+import { AuthContext } from "@/components/AuthProvider.tsx";
+import { useContext } from "react";
+import { useVerifyMockUseMutation } from "@/services/auth.service.ts";
 
 const schema = yup.object().shape({
     email: yup.string().email().required("Email is required"),
@@ -19,6 +20,7 @@ const defaultValues: DefaultValues<SignInFormType> = {
 };
 
 function LoginPage() {
+    const authContext = useContext(AuthContext);
     const { mutateAsync: login, isPending } = useVerifyMockUseMutation();
 
     const { handleSubmit, control } = useForm<SignInFormType>({
@@ -30,6 +32,11 @@ function LoginPage() {
         login(data)
             .then((response) => {
                 TokenService.setToken(response.token);
+                authContext.setUser({
+                    id: response.id,
+                    name: response.name,
+                    role: response.role
+                });
             })
             .catch((error) => {
                 //TODO: Show toast
