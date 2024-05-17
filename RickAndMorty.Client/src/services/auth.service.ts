@@ -1,7 +1,6 @@
 import {
     SignInFormType,
     User,
-    LoginResponse
 } from '@/types'
 
 const users: User[] = [
@@ -23,25 +22,13 @@ const users: User[] = [
     },
 ]
 
-const login = (data: SignInFormType): Promise<LoginResponse> => {
+const verifyMockUser = (data: SignInFormType): Promise<User> => {
     return new Promise((resolve, reject) => {
-        let foundUser = users.find(u => u.email === data.email && u.password === data.password)
-        if (foundUser) {
-            resolve({
-                errorMessage: null,
-                success: true,
-                data: foundUser
-            });
-        } else {
-            reject({
-                errorMessage: "No user found",
-                success: false,
-                data: null
-            });
-        }
+        const user = users.find(({ email, password }) => email === data.email && password === data.password);
+        return user ? resolve(user) : reject('User not found');
     });
 }
 
 export default {
-    login
+    verifyMockUser
 }

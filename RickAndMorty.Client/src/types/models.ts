@@ -6,9 +6,3 @@ export type User = {
     token: string,
     roles: string[]
 }
-
-export type LoginResponse = {
-    errorMessage: string | null
-    success: boolean
-    data: User | null
-}
