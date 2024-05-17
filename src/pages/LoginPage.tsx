@@ -5,7 +5,6 @@ import { FormControl } from "@/components";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
-import { ROUTES } from "@/types/constants.ts";
 import { useVerifyMockUseMutation } from "@/hooks/auth.mock.hooks.ts";
 import { TokenService } from "@/services";
 
@@ -20,7 +19,6 @@ const defaultValues: DefaultValues<SignInFormType> = {
 };
 
 function LoginPage() {
-    const navigate = useNavigate();
     const { mutateAsync: login, isPending } = useVerifyMockUseMutation();
 
     const { handleSubmit, control } = useForm<SignInFormType>({
@@ -31,9 +29,7 @@ function LoginPage() {
     const onSubmit: SubmitHandler<SignInFormType> = (data) => {
         login(data)
             .then((response) => {
-                console.log(response);
                 TokenService.setToken(response.token);
-                //navigate(ROUTES.INITIAL_ROUTE, { replace: true })
             })
             .catch((error) => {
                 //TODO: Show toast

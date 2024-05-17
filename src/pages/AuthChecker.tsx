@@ -20,6 +20,16 @@ const AuthChecker = ({ children }: RequireAuth) => {
         );
     }
 
+    if (auth.user && location.pathname === ROUTES.LOGIN) {
+        return (
+            <Navigate
+                to={ROUTES.CHARACTERS}
+                state={{ from: location }}
+                replace
+            />
+        );
+    }
+
     if (location.pathname === "/") {
         return (
             <Navigate

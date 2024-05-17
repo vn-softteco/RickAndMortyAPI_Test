@@ -25,7 +25,7 @@ export default function AuthProvider({ children }: PropsWithChildren) {
             user,
             setUser
         }),
-        []
+        [user, setUser]
     );
 
     useEffect(() => {
