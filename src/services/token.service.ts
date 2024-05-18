@@ -15,9 +15,7 @@ const getAccessToken = () => Cookies.get("token");
 const getUserFromToken = (): UserFromToken | undefined => {
     const token = getAccessToken();
     if (!token) return undefined;
-    const userFromToken = jwtDecode<UserFromToken>(token);
-    console.log(userFromToken);
-    return userFromToken;
+    return jwtDecode<UserFromToken>(token);
 };
 
 export default {

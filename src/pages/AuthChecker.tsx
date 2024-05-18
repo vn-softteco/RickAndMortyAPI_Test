@@ -11,9 +11,6 @@ const AuthChecker = ({ children }: RequireAuth) => {
     const location = useLocation();
     const auth = useContext(AuthContext);
 
-    console.log("auth", auth);
-    console.log("TOKEN", auth.user);
-
     if (!auth.user && location.pathname !== ROUTES.LOGIN) {
         return (
             <Navigate to={ROUTES.LOGIN} state={{ from: location }} replace />
