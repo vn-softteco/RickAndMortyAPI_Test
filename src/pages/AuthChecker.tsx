@@ -8,33 +8,15 @@ type RequireAuth = {
 };
 
 const AuthChecker = ({ children }: RequireAuth) => {
-    const location = useLocation();
-    const auth = useContext(AuthContext);
+    const { pathname } = useLocation();
+    const { user } = useContext(AuthContext);
 
-    if (!auth.user && location.pathname !== ROUTES.LOGIN) {
-        return (
-            <Navigate to={ROUTES.LOGIN} state={{ from: location }} replace />
-        );
+    if (!user && pathname !== ROUTES.LOGIN) {
+        return <Navigate to={ROUTES.LOGIN} />;
     }
 
-    if (auth.user && location.pathname === ROUTES.LOGIN) {
-        return (
-            <Navigate
-                to={ROUTES.CHARACTERS}
-                state={{ from: location }}
-                replace
-            />
-        );
-    }
-
-    if (location.pathname === "/") {
-        return (
-            <Navigate
-                to={ROUTES.CHARACTERS}
-                state={{ from: location }}
-                replace
-            />
-        );
+    if ((user && pathname === ROUTES.LOGIN) || pathname === "/") {
+        return <Navigate to={ROUTES.CHARACTERS} />;
     }
 
     return children;
