@@ -11,7 +11,7 @@ import { useGetCharacters } from "@/queries/characters.queries.tsx";
 import { Search } from "@/components";
 import { DefaultLayout } from "@/layouts/DefaultLayout.tsx";
 
-const CharactersPage = function () {
+const LocationsPage = function () {
     const [selectedName, setSelectedName] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const { data, isLoading, isError, error, isFetched, isSuccess } =
@@ -68,4 +68,4 @@ const CharactersPage = function () {
     );
 };
 
-export default CharactersPage;
+export default LocationsPage;

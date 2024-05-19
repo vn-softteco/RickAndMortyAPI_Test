@@ -6,39 +6,53 @@ import {
     useState
 } from "react";
 import { UserFromToken } from "@/types";
-import tokenService from "@/services/token.service.ts";
+import { useGetUserFromToken } from "@/queries/token.queries.tsx";
 
 type AuthContextProps = {
-    isAdmin?: boolean;
     user?: UserFromToken;
     setUser: (user: UserFromToken) => void;
+    isError: boolean;
+    isLoading: boolean;
+    isFetched: boolean;
 };
 
 export const AuthContext = createContext<AuthContextProps>({
-    setUser: () => null
+    setUser: () => null,
+    isError: true,
+    isLoading: true,
+    isFetched: true
 });
 
 export default function AuthProvider({ children }: PropsWithChildren) {
+    const {
+        data: userFromToken,
+        isError,
+        isFetched,
+        isLoading
+    } = useGetUserFromToken();
     const [user, setUser] = useState<UserFromToken>();
-    const [isAdmin, setIsAdmin] = useState<boolean>();
     const contextValue = useMemo<AuthContextProps>(
         () => ({
-            isAdmin,
             user,
-            setUser
+            setUser,
+            isError,
+            isLoading,
+            isFetched
         }),
-        [user, setUser]
+        [user, setUser, isError, isFetched, isLoading]
     );
 
     useEffect(() => {
-        const userFromToken = tokenService.getUserFromToken();
-        setUser(userFromToken);
-        setIsAdmin(userFromToken?.role === "admin");
-    }, []);
+        console.log("userFromToken", userFromToken);
+        if (!isError) setUser(undefined);
+        if (userFromToken) setUser(userFromToken);
+    }, [userFromToken, isError, isFetched, isLoading]);
 
-    return (
-        <AuthContext.Provider value={contextValue}>
-            {children}
-        </AuthContext.Provider>
-    );
+    if (isFetched) {
+        return (
+            <AuthContext.Provider value={contextValue}>
+                {children}
+            </AuthContext.Provider>
+        );
+    }
 }

@@ -1,15 +1,11 @@
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ROUTES } from "@/types/constants";
 
-import { LoginPage, AuthChecker, CharactersPage } from "@/pages";
+import { LoginPage, CharactersPage, LocationsPage } from "@/pages";
+import { AuthAccess } from "@/components";
 
 const router = createBrowserRouter([
     {
-        element: (
-            <AuthChecker>
-                <Outlet />
-            </AuthChecker>
-        ),
         path: ROUTES.INITIAL_ROUTE,
         children: [
             {
@@ -17,8 +13,22 @@ const router = createBrowserRouter([
                 element: <LoginPage />
             },
             {
-                path: ROUTES.CHARACTERS,
-                element: <CharactersPage />
+                element: <AuthAccess roles={["admin"]} />,
+                children: [
+                    {
+                        path: ROUTES.LOCATIONS,
+                        element: <LocationsPage />
+                    }
+                ]
+            },
+            {
+                element: <AuthAccess roles={["user", "admin"]} />,
+                children: [
+                    {
+                        path: ROUTES.CHARACTERS,
+                        element: <CharactersPage />
+                    }
+                ]
             }
         ]
     }

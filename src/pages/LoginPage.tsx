@@ -4,10 +4,12 @@ import { Button, TextField } from "@mui/material";
 import { FormControl } from "@/components";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { TokenService } from "@/services";
-import { AuthContext } from "@/components/AuthProvider.tsx";
+import { useSetToken } from "@/queries/token.queries.tsx";
 import { useContext } from "react";
-import { useVerifyMockUseMutation } from "@/services/auth.service.ts";
+import { AuthContext } from "@/components/AuthProvider.tsx";
+import { ROUTES } from "@/types/constants.ts";
+import { Navigate } from "react-router-dom";
+import { useVerifyMockUseMutation } from "@/queries/auth.queries.tsx";
 
 const schema = yup.object().shape({
     email: yup.string().email().required("Email is required"),
@@ -19,30 +21,29 @@ const defaultValues: DefaultValues<SignInFormType> = {
     password: ""
 };
 
-function LoginPage() {
-    const authContext = useContext(AuthContext);
+const LoginPage = function () {
+    const { user } = useContext(AuthContext);
     const { mutateAsync: login, isPending } = useVerifyMockUseMutation();
+    const { mutate: setToken } = useSetToken();
 
     const { handleSubmit, control } = useForm<SignInFormType>({
         defaultValues,
         resolver: yupResolver(schema)
     });
-
     const onSubmit: SubmitHandler<SignInFormType> = (data) => {
         login(data)
             .then((response) => {
-                TokenService.setToken(response.token);
-                authContext.setUser({
-                    id: response.id,
-                    name: response.name,
-                    role: response.role
-                });
+                setToken(response.token);
+                // TODO: Think about auto navigation after token setting
+                return <Navigate to={ROUTES.CHARACTERS}></Navigate>;
             })
             .catch((error) => {
                 //TODO: Show toast
                 console.error("Error", error);
             });
     };
+
+    if (user) return <Navigate to={ROUTES.CHARACTERS} />;
 
     return (
         <form
@@ -74,6 +75,6 @@ function LoginPage() {
             </Button>
         </form>
     );
-}
+};
 
 export default LoginPage;

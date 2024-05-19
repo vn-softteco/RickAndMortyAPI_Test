@@ -11,7 +11,7 @@ type SearchProps = {
 const Search = ({ names, onNameSelect }: SearchProps) => {
     const [value, setValue] = useState<string | null>(null);
 
-    const handleInputChange = (event, newInputValue) => {
+    const handleInputChange = (event, newInputValue: string) => {
         if (newInputValue.length >= 2 || !newInputValue)
             setSearchValue(newInputValue);
     };

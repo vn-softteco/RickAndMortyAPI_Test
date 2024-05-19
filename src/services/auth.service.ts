@@ -1,5 +1,4 @@
 import { SignInFormType, MockUser } from "@/types";
-import { useMutation } from "@tanstack/react-query";
 
 const users: MockUser[] = [
     {
@@ -34,12 +33,6 @@ const verifyMockUser = (data: SignInFormType): Promise<MockUser> => {
     });
 };
 
-export function useVerifyMockUseMutation() {
-    return useMutation({
-        mutationFn: (data: SignInFormType) => verifyMockUser(data)
-    });
-}
-
 export default {
-    useVerifyMockUseMutation
+    verifyMockUser
 };

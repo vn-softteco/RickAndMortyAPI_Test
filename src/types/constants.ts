@@ -1,9 +1,11 @@
 export const ROUTES = {
     INITIAL_ROUTE: "/",
     LOGIN: "/login",
-    CHARACTERS: "/characters"
+    CHARACTERS: "/characters",
+    LOCATIONS: "/locations"
 };
 
 export const API_ENDPOINTS = {
-    CHARACTERS: "/character"
+    CHARACTERS: "/character",
+    LOCATIONS: "/location"
 };
