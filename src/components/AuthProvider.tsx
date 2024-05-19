@@ -14,11 +14,13 @@ type AuthContextProps = {
     isError: boolean;
     isLoading: boolean;
     isFetched: boolean;
+    isAdmin?: boolean;
 };
 
 export const AuthContext = createContext<AuthContextProps>({
     setUser: () => null,
     isError: true,
+    isAdmin: true,
     isLoading: true,
     isFetched: true
 });
@@ -31,10 +33,12 @@ export default function AuthProvider({ children }: PropsWithChildren) {
         isLoading
     } = useGetUserFromToken();
     const [user, setUser] = useState<UserFromToken>();
+    const [isAdmin, setIsAdmin] = useState<boolean>();
     const contextValue = useMemo<AuthContextProps>(
         () => ({
             user,
             setUser,
+            isAdmin,
             isError,
             isLoading,
             isFetched
@@ -45,7 +49,10 @@ export default function AuthProvider({ children }: PropsWithChildren) {
     useEffect(() => {
         console.log("userFromToken", userFromToken);
         if (!isError) setUser(undefined);
-        if (userFromToken) setUser(userFromToken);
+        if (userFromToken) {
+            setUser(userFromToken);
+            setIsAdmin(userFromToken?.role === "admin");
+        }
     }, [userFromToken, isError, isFetched, isLoading]);
 
     if (isFetched) {

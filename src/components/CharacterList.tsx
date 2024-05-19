@@ -1,45 +1,33 @@
 import { PaginatedCharacter } from "@/types";
-import {
-    Box,
-    Card,
-    CardContent,
-    CardHeader,
-    CardMedia,
-    Typography
-} from "@mui/material";
-import { memo } from "react";
+import { Box } from "@mui/material";
+import { memo, useCallback, useContext } from "react";
+import { AuthContext } from "@/components/AuthProvider.tsx";
+import { Character } from "@/components";
+import { generatePath, useNavigate } from "react-router-dom";
+import { ROUTES } from "@/types/constants.ts";
 
 interface CharactersListProps {
     data: PaginatedCharacter;
 }
 
 const CharactersList = memo(function ({ data }: CharactersListProps) {
+    const { isAdmin } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const handleCharacterClick = (id: string) => {
+        console.log(id);
+        navigate(generatePath(ROUTES.CHARACTER_BY_ID, { id }));
+    };
+
     return (
         <Box columnGap={2} rowGap={2} display={"flex"} flexWrap={"wrap"}>
             {data.results.map((character) => (
-                <Card
+                <Character
                     key={character.id + character.image}
-                    sx={{
-                        flex: "22%",
-                        height: "40vh"
-                    }}
-                >
-                    <CardHeader
-                        titleTypographyProps={{ fontSize: "1rem" }}
-                        title={character.name}
-                    />
-                    <CardMedia
-                        component="img"
-                        height="300"
-                        image={character.image}
-                        alt={character.name}
-                    />
-                    <CardContent>
-                        <Typography variant="body2">
-                            {character.species}
-                        </Typography>
-                    </CardContent>
-                </Card>
+                    character={character}
+                    disabledClick={!isAdmin}
+                    handleCharacterClick={handleCharacterClick}
+                ></Character>
             ))}
         </Box>
     );

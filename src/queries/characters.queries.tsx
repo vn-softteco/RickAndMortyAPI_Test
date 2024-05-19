@@ -1,6 +1,6 @@
 import { API_ENDPOINTS } from "@/types/constants.ts";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { PaginatedCharacter } from "@/types";
+import { Character, PaginatedCharacter } from "@/types";
 import { API } from "@/services/api.service.ts";
 
 export const useGetCharacters = (name: string | null, page = 1) => {
@@ -15,5 +15,16 @@ export const useGetCharacters = (name: string | null, page = 1) => {
             }),
         retry: 0,
         placeholderData: keepPreviousData
+    });
+};
+
+export const useGetCharacterById = (id: string) => {
+    return useQuery<Character>({
+        queryKey: ["CHARACTER", id],
+        queryFn: () =>
+            API(`${API_ENDPOINTS.CHARACTERS}/${id}`, {
+                params: {}
+            }),
+        retry: 2
     });
 };
