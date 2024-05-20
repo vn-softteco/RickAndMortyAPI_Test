@@ -7,7 +7,7 @@ import {
     CharacterPage,
     ForbiddenPage
 } from "@/pages";
-import { RolesAccess } from "@/components";
+import { RouteAccessChecker } from "@/components";
 
 const router = createBrowserRouter([
     {
@@ -19,7 +19,7 @@ const router = createBrowserRouter([
         element: <LoginPage />
     },
     {
-        element: <RolesAccess roles={["user", "admin"]} />,
+        element: <RouteAccessChecker roles={["user", "admin"]} />,
         children: [
             {
                 path: ROUTES.CHARACTERS,
@@ -32,7 +32,7 @@ const router = createBrowserRouter([
         ]
     },
     {
-        element: <RolesAccess roles={["admin"]} />,
+        element: <RouteAccessChecker roles={["admin"]} />,
         children: [
             {
                 path: ROUTES.CHARACTER_BY_ID,

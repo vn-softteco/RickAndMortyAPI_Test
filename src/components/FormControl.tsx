@@ -1,14 +1,10 @@
-import {
-    ComponentType,
-    ForwardRefExoticComponent,
-    ReactNode,
-} from 'react';
+import { ComponentType, ForwardRefExoticComponent, ReactNode } from "react";
 import {
     Control,
     FieldPath,
     FieldValues,
-    useController,
-} from 'react-hook-form';
+    useController
+} from "react-hook-form";
 
 type ComponentBaseProps = {
     error?: boolean;
@@ -21,7 +17,7 @@ type Component<TProps extends ComponentBaseProps> =
 
 type Props<
     TProps extends ComponentBaseProps,
-    TFieldValues extends FieldValues,
+    TFieldValues extends FieldValues
 > = {
     component?: Component<TProps>;
     control?: Control<TFieldValues>;
@@ -31,20 +27,19 @@ type Props<
 
 function FormControl<
     TProps extends ComponentBaseProps = ComponentBaseProps,
-    TFieldValues extends FieldValues = FieldValues,
+    TFieldValues extends FieldValues = FieldValues
 >({
-      component: Component,
-      control,
-      helperText,
-      name,
-      ...rest
-  }: Props<TProps, TFieldValues>) {
+    component: Component,
+    control,
+    name,
+    ...rest
+}: Props<TProps, TFieldValues>) {
     const {
         field,
-        fieldState: { error },
+        fieldState: { error }
     } = useController<TFieldValues>({
         name: name as FieldPath<TFieldValues>,
-        control,
+        control
     });
 
     return Component ? (

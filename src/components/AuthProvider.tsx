@@ -5,12 +5,12 @@ import {
     useMemo,
     useState
 } from "react";
-import { UserFromToken } from "@/types";
+import { UserInfo } from "@/types";
 import { TokenService } from "@/services";
 
 type AuthContextProps = {
-    user?: UserFromToken;
-    setUser: (user?: UserFromToken) => void;
+    user?: UserInfo;
+    setUser: (user?: UserInfo) => void;
 };
 
 export const AuthContext = createContext<AuthContextProps>({
@@ -18,26 +18,23 @@ export const AuthContext = createContext<AuthContextProps>({
 });
 
 export default function AuthProvider({ children }: PropsWithChildren) {
-    const [user, setUser] = useState<UserFromToken>();
+    const [isAppInitialized, setApInitialized] = useState(false);
+    const [user, setUser] = useState<UserInfo>();
     const contextValue = useMemo<AuthContextProps>(
         () => ({ user, setUser }),
         [user, setUser]
     );
 
     useEffect(() => {
-        const token = TokenService.getToken();
-        if (token) {
-            setUser(JSON.parse(token));
-        }
+        setApInitialized(true);
+        setUser(TokenService.getUserFromToken());
     }, [])
 
     useEffect(() => {
-        if (user) {
-            TokenService.setToken(JSON.stringify(user));
-        } else {
-            TokenService.deleteToken();
+        if (isAppInitialized) {
+            TokenService.setUserToToken(user);
         }
-    }, [user])
+    }, [isAppInitialized, user])
 
     return (
         <AuthContext.Provider value={contextValue}>

@@ -7,7 +7,7 @@ export type MockUser = {
     password: string;
 };
 
-export type UserFromToken = {
+export type UserInfo = {
     id: number;
     name: string;
     role: string;

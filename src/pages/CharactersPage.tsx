@@ -3,30 +3,30 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
 import Pagination from "@mui/material/Pagination";
 import CharactersList from "@/components/CharacterList.tsx";
-import { useCallback, useState } from "react";
+import { ChangeEvent, useCallback, useMemo, useState } from "react";
 import { useGetCharacters } from "@/queries/characters.queries.tsx";
 import { Search } from "@/components";
 import { DefaultLayout } from "@/layouts/DefaultLayout.tsx";
 
 const CharactersPage = function () {
-    const [selectedName, setSelectedName] = useState(null);
-    const [currentPage, setCurrentPage] = useState(1);
+    const [selectedName, setSelectedName] = useState<string | null>(null);
+    const [currentPage, setCurrentPage] = useState<number>(1);
     const { data, isLoading, isError, error, isFetched, isSuccess } =
         useGetCharacters(selectedName, currentPage);
 
-    const handleNameSelect = useCallback(
-        (name: string) => {
-            setSelectedName(name);
-            setCurrentPage(1);
-        },
-        [selectedName, currentPage]
-    );
+    const handleNameSelect = useCallback((name: string) => {
+        setSelectedName(name);
+        setCurrentPage(1);
+    }, []);
 
-    const handlePageChange = (event, page) => {
+    const handlePageChange = (_: ChangeEvent<unknown>, page: number): void => {
         setCurrentPage(page);
     };
 
-    const names = data ? [...new Set(data.results.map((p) => p.name))] : [];
+    const names = useMemo<string[]>(
+        () => (data ? [...new Set(data.results.map((p) => p.name))] : []),
+        [data]
+    );
 
     return (
         <DefaultLayout>

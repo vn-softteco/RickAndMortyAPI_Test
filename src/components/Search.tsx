@@ -1,18 +1,19 @@
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
-import { useState } from "react";
+import { SyntheticEvent, useState } from "react";
 
 type SearchProps = {
     names: string[];
-    onNameSelect(
-        searchText: string | null
-    ): (name: string | null) => string | null;
+    onNameSelect(searchText: string | null): void;
 };
 
 const Search = ({ names, onNameSelect }: SearchProps) => {
     const [value, setValue] = useState<string | null>(null);
 
-    const handleInputChange = (event, newInputValue: string) => {
+    const handleInputChange = (
+        _: SyntheticEvent<Element, Event>,
+        newInputValue: string
+    ) => {
         if (newInputValue.length >= 2 || !newInputValue)
             setSearchValue(newInputValue);
     };

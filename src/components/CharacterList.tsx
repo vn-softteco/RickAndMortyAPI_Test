@@ -1,6 +1,6 @@
 import { PaginatedCharacter } from "@/types";
 import Grid from "@mui/material/Grid";
-import { memo, useContext } from "react";
+import { useContext } from "react";
 import { AuthContext } from "@/components/AuthProvider";
 import { Character } from "@/components";
 import { generatePath, useNavigate } from "react-router-dom";
@@ -10,7 +10,7 @@ interface CharactersListProps {
     data: PaginatedCharacter;
 }
 
-const CharactersList = memo(function ({ data }: CharactersListProps) {
+const CharactersList = function ({ data }: CharactersListProps) {
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
 
@@ -32,12 +32,12 @@ const CharactersList = memo(function ({ data }: CharactersListProps) {
                 <Character
                     key={character.id}
                     character={character}
-                    disabledClick={user?.role !== 'admin'}
+                    disabledClick={user?.role !== "admin"}
                     handleCharacterClick={handleCharacterClick}
                 ></Character>
             ))}
         </Grid>
     );
-});
+};
 
 export default CharactersList;

@@ -1,4 +1,4 @@
-import { SignInFormType, MockUser } from "@/types";
+import { SignInFormType, MockUser, UserInfo } from "@/types";
 
 const users: MockUser[] = [
     {
@@ -23,13 +23,19 @@ const users: MockUser[] = [
     }
 ];
 
-const verifyMockUser = (data: SignInFormType): Promise<MockUser> => {
+const verifyMockUser = (data: SignInFormType): Promise<UserInfo> => {
     return new Promise((resolve, reject) => {
         const user = users.find(
             ({ email, password }) =>
                 email === data.email && password === data.password
         );
-        return user ? resolve(user) : reject("User not found");
+
+        if (user) {
+            const { id, name, role } = user;
+            resolve({ id, name, role });
+        } else {
+            reject("User not found");
+        }
     });
 };
 
