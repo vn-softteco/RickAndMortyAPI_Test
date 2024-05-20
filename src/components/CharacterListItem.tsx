@@ -1,5 +1,5 @@
 import { Character } from "@/types";
-import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -23,13 +23,7 @@ const CharacterListItem = function ({
     };
 
     return (
-        <Box
-            columnGap={2}
-            rowGap={2}
-            display="flex"
-            flexWrap="wrap"
-            minWidth="300px"
-        >
+        <Grid item xs={12} sm={6} md={4} lg={3}>
             <Card
                 sx={{
                     height: "40vh",
@@ -57,7 +51,7 @@ const CharacterListItem = function ({
                     </CardContent>
                 </CardActionArea>
             </Card>
-        </Box>
+        </Grid>
     );
 };
 

@@ -20,9 +20,9 @@ const CharactersList = memo(function ({ data }: CharactersListProps) {
 
     return (
         <Grid
-            item
-            columnGap={2}
+            container
             rowGap={2}
+            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
             display="flex"
             flexWrap="wrap"
             justifyContent="space-between"

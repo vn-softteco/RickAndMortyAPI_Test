@@ -2,7 +2,6 @@ import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
 import Pagination from "@mui/material/Pagination";
-import Grid from "@mui/material/Grid";
 import CharactersList from "@/components/CharacterList.tsx";
 import { useCallback, useState } from "react";
 import { useGetCharacters } from "@/queries/characters.queries.tsx";
@@ -31,7 +30,7 @@ const CharactersPage = function () {
 
     return (
         <DefaultLayout>
-            <Grid>
+            <Box>
                 <Box>
                     <Search
                         names={names}
@@ -78,7 +77,7 @@ const CharactersPage = function () {
                         </Box>
                     );
                 })()}
-            </Grid>
+            </Box>
         </DefaultLayout>
     );
 };
