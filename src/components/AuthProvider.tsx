@@ -7,6 +7,7 @@ import {
 } from "react";
 import { UserInfo } from "@/types";
 import { TokenService } from "@/services";
+import CircularProgress from "@mui/material/CircularProgress";
 
 type AuthContextProps = {
     user?: UserInfo;
@@ -36,6 +37,9 @@ export default function AuthProvider({ children }: PropsWithChildren) {
         }
     }, [isAppInitialized, user])
 
+    if (!isAppInitialized) {
+        return <CircularProgress />
+    }
     return (
         <AuthContext.Provider value={contextValue}>
             {children}

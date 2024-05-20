@@ -3,11 +3,11 @@ import { Navigate, Outlet, useMatch } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "@/components/AuthProvider.tsx";
 
-type RoleAccessProps = {
+type RouteAccessProps = {
     roles?: string[];
 };
 
-function RouteAccessChecker({ roles }: RoleAccessProps) {
+function RouteAccessChecker({ roles }: RouteAccessProps) {
     const { user } = useContext(AuthContext);
     const isLoginRoute = useMatch(ROUTES.LOGIN);
 

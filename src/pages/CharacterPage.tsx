@@ -1,6 +1,5 @@
 import { useGetCharacterById } from "@/queries/characters.queries.tsx";
 import { DefaultLayout } from "@/layouts/DefaultLayout.tsx";
-import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
 import { useParams } from "react-router-dom";
@@ -12,40 +11,14 @@ const CharacterPage = function () {
         data: character,
         isLoading,
         isError,
-        error,
-        isFetched,
-        isSuccess
+        error
     } = useGetCharacterById(id!);
 
     return (
         <DefaultLayout>
-            {(() => {
-                if (isLoading) {
-                    return <CircularProgress />;
-                }
-
-                if (isError) {
-                    return (
-                        <Typography variant="h1">{error.message}</Typography>
-                    );
-                }
-
-                if (isFetched && isSuccess && character) {
-                    return (
-                        <Box>
-                            <CharacterDetails
-                                character={character}
-                            ></CharacterDetails>
-                        </Box>
-                    );
-                }
-
-                return (
-                    <Box>
-                        <Typography variant="h1">Error</Typography>
-                    </Box>
-                );
-            })()}
+            {isLoading && <CircularProgress />}
+            {isError && <Typography variant="h1">{error.message}</Typography>}
+            {character && <CharacterDetails character={character} />}
         </DefaultLayout>
     );
 };
