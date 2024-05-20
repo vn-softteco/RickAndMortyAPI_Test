@@ -1,5 +1,5 @@
 import { PaginatedCharacter } from "@/types";
-import { Grid } from "@mui/material";
+import Grid from "@mui/material/Grid";
 import { memo, useContext } from "react";
 import { AuthContext } from "@/components/AuthProvider.tsx";
 import { Character } from "@/components";

@@ -1,6 +1,8 @@
 import { useGetCharacterById } from "@/queries/characters.queries.tsx";
 import { DefaultLayout } from "@/layouts/DefaultLayout.tsx";
-import { Box, CircularProgress, Typography } from "@mui/material";
+import Box from "@mui/material/Box";
+import CircularProgress from "@mui/material/CircularProgress";
+import Typography from "@mui/material/Typography";
 import { useParams } from "react-router-dom";
 import CharacterDetails from "../components/CharacterDetails.tsx";
 

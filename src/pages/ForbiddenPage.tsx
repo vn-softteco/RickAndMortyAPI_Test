@@ -1,5 +1,7 @@
 import { DefaultLayout } from "@/layouts/DefaultLayout.tsx";
-import { Box, Button, Typography } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/types/constants.ts";
 
