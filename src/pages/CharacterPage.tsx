@@ -17,15 +17,33 @@ const CharacterPage = function () {
 
     return (
         <DefaultLayout>
-            {isLoading ? (
-                <CircularProgress />
-            ) : isError ? (
-                <Typography variant="h1">{error.message}</Typography>
-            ) : isFetched && isSuccess && character ? (
-                <Box>
-                    <CharacterDetails character={character}></CharacterDetails>
-                </Box>
-            ) : null}
+            {(() => {
+                if (isLoading) {
+                    return <CircularProgress />;
+                }
+
+                if (isError) {
+                    return (
+                        <Typography variant="h1">{error.message}</Typography>
+                    );
+                }
+
+                if (isFetched && isSuccess && character) {
+                    return (
+                        <Box>
+                            <CharacterDetails
+                                character={character}
+                            ></CharacterDetails>
+                        </Box>
+                    );
+                }
+
+                return (
+                    <Box>
+                        <Typography variant="h1">Error</Typography>
+                    </Box>
+                );
+            })()}
         </DefaultLayout>
     );
 };

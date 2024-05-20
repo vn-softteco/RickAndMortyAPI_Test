@@ -10,15 +10,13 @@ const ForbiddenPage = function () {
         <DefaultLayout>
             <Box>
                 <Typography variant="h1">Access forbidden</Typography>
-                <Box>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={() => navigate(ROUTES.CHARACTERS)}
-                    >
-                        Go to Characters
-                    </Button>
-                </Box>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => navigate(ROUTES.CHARACTERS)}
+                >
+                    Go to Characters
+                </Button>
             </Box>
         </DefaultLayout>
     );

@@ -40,29 +40,46 @@ const CharactersPage = function () {
                         onNameSelect={handleNameSelect}
                     ></Search>
                 </Box>
-                {isLoading ? (
-                    <CircularProgress />
-                ) : isError ? (
-                    <Typography variant="h1">{error.message}</Typography>
-                ) : isFetched && isSuccess && data ? (
-                    <Box>
-                        <CharactersList data={data} />
-                        <Box
-                            sx={{
-                                display: "flex",
-                                justifyContent: "center",
-                                m: 2
-                            }}
-                        >
-                            <Pagination
-                                color="primary"
-                                count={data.info.pages}
-                                page={currentPage}
-                                onChange={handlePageChange}
-                            />
+                {(() => {
+                    if (isLoading) {
+                        return <CircularProgress />;
+                    }
+
+                    if (isError) {
+                        return (
+                            <Typography variant="h1">
+                                {error.message}
+                            </Typography>
+                        );
+                    }
+
+                    if (isFetched && isSuccess && data) {
+                        return (
+                            <Box>
+                                <CharactersList data={data} />
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        m: 2
+                                    }}
+                                >
+                                    <Pagination
+                                        color="primary"
+                                        count={data.info.pages}
+                                        page={currentPage}
+                                        onChange={handlePageChange}
+                                    />
+                                </Box>
+                            </Box>
+                        );
+                    }
+                    return (
+                        <Box>
+                            <Typography variant="h1">Error</Typography>
                         </Box>
-                    </Box>
-                ) : null}
+                    );
+                })()}
             </Grid>
         </DefaultLayout>
     );

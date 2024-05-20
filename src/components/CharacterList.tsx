@@ -23,9 +23,9 @@ const CharactersList = memo(function ({ data }: CharactersListProps) {
             item
             columnGap={2}
             rowGap={2}
-            display={"flex"}
-            flexWrap={"wrap"}
-            justifyContent={"space-between"}
+            display="flex"
+            flexWrap="wrap"
+            justifyContent="space-between"
             alignItems="center"
         >
             {data.results.map((character) => (

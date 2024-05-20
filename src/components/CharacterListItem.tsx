@@ -28,9 +28,9 @@ const CharacterListItem = function ({
         <Box
             columnGap={2}
             rowGap={2}
-            display={"flex"}
-            flexWrap={"wrap"}
-            minWidth={"300px"}
+            display="flex"
+            flexWrap="wrap"
+            minWidth="300px"
         >
             <Card
                 sx={{
