@@ -16,11 +16,13 @@ const RolesAccess = function (props: RoleAccessProps) {
     }, [setUser]);
 
     if (authRead) {
-        return user &&
-            (!props.roles.length || props.roles.includes(user?.role)) ? (
-            <Outlet />
+        return user ? (
+            !props.roles.length || props.roles.includes(user?.role) ? (
+                <Outlet />
+            ) : (
+                <Navigate to={ROUTES.FORBIDDEN} />
+            )
         ) : (
-            //TODO: Unauthorized page
             <Navigate to={ROUTES.LOGIN} />
         );
     }

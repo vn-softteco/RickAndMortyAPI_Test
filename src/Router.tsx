@@ -1,9 +1,13 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ROUTES } from "@/types/constants";
 
-import { LoginPage, CharactersPage } from "@/pages";
+import {
+    LoginPage,
+    CharactersPage,
+    CharacterPage,
+    ForbiddenPage
+} from "@/pages";
 import { AuthAccess } from "@/components";
-import CharacterPage from "./pages/CharacterPage.tsx";
 
 const router = createBrowserRouter([
     {
@@ -20,6 +24,10 @@ const router = createBrowserRouter([
                     {
                         path: ROUTES.CHARACTERS,
                         element: <CharactersPage />
+                    },
+                    {
+                        path: ROUTES.FORBIDDEN,
+                        element: <ForbiddenPage />
                     }
                 ]
             },

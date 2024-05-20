@@ -1,10 +1,8 @@
 import { useGetCharacterById } from "@/queries/characters.queries.tsx";
 import { DefaultLayout } from "@/layouts/DefaultLayout.tsx";
-import Character from "@/components/Character.tsx";
 import { Box, CircularProgress, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
-import { useContext } from "react";
-import { AuthContext } from "@/components/AuthProvider.tsx";
+import { Character } from "@/components";
 
 const CharacterPage = function () {
     const { id } = useParams();

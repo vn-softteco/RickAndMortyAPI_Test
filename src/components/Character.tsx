@@ -1,4 +1,4 @@
-import { Character, PaginatedCharacter } from "@/types";
+import { Character } from "@/types";
 import {
     Box,
     Card,
@@ -9,11 +9,11 @@ import {
     Typography
 } from "@mui/material";
 
-interface CharacterProps {
+type CharacterProps = {
     character: Character;
     disabledClick: boolean;
-    handleCharacterClick: () => void;
-}
+    handleCharacterClick: (id: number) => void;
+};
 
 const Character = function ({
     character,
@@ -25,11 +25,17 @@ const Character = function ({
     };
 
     return (
-        <Box columnGap={2} rowGap={2} display={"flex"} flexWrap={"wrap"}>
+        <Box
+            columnGap={2}
+            rowGap={2}
+            display={"flex"}
+            flexWrap={"wrap"}
+            minWidth={"300px"}
+        >
             <Card
                 sx={{
-                    flex: "23%",
-                    height: "40vh"
+                    height: "40vh",
+                    width: "100%"
                 }}
             >
                 <CardActionArea disabled={disabledClick} onClick={handleClick}>

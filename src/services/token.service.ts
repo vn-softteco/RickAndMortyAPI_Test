@@ -22,7 +22,6 @@ const getAccessToken = () => Cookies.get("token");
 const getUserFromToken = (): Promise<UserFromToken | null> => {
     return new Promise((resolve) => {
         const token = getAccessToken();
-        console.log("GET TOKEN", token);
         return token ? resolve(jwtDecode<UserFromToken>(token)) : resolve(null);
     });
 };
