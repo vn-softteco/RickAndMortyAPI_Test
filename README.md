@@ -11,6 +11,12 @@ To get started, open the source code and install all the necessary dependencies 
 npm install
 ```
 
+After all packages installation you can run the app
+
+```sh
+npm run dev
+```
+
 ## Authentication
 
 To access the application you have to sing into it. Authentication uses Mock data, so choose between these 2 users
