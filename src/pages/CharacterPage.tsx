@@ -2,7 +2,7 @@ import { useGetCharacterById } from "@/queries/characters.queries.tsx";
 import { DefaultLayout } from "@/layouts/DefaultLayout.tsx";
 import { Box, CircularProgress, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
-import { Character } from "@/components";
+import CharacterDetails from "../components/CharacterDetails.tsx";
 
 const CharacterPage = function () {
     const { id } = useParams();
@@ -23,11 +23,7 @@ const CharacterPage = function () {
                 <Typography variant="h1">{error.message}</Typography>
             ) : isFetched && isSuccess && character ? (
                 <Box>
-                    <Character
-                        disabledClick={false}
-                        character={character}
-                        handleCharacterClick={() => {}}
-                    ></Character>
+                    <CharacterDetails character={character}></CharacterDetails>
                 </Box>
             ) : null}
         </DefaultLayout>

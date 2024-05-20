@@ -16,12 +16,9 @@ export type UserFromToken = {
 export type Character = {
     id: number;
     name: string;
-    species: string;
     type: string;
     gender: string;
     image: string;
-    url: string;
-    created: string;
 };
 
 export type Pagination = {

@@ -15,7 +15,7 @@ type CharacterProps = {
     handleCharacterClick: (id: number) => void;
 };
 
-const Character = function ({
+const CharacterListItem = function ({
     character,
     disabledClick,
     handleCharacterClick
@@ -40,7 +40,10 @@ const Character = function ({
             >
                 <CardActionArea disabled={disabledClick} onClick={handleClick}>
                     <CardHeader
-                        titleTypographyProps={{ fontSize: "1em" }}
+                        titleTypographyProps={{
+                            fontSize: "1em",
+                            fontWeight: "bold"
+                        }}
                         title={character.name}
                     />
                     <CardMedia
@@ -50,7 +53,7 @@ const Character = function ({
                         alt={character.name}
                     />
                     <CardContent>
-                        <Typography variant="body2">
+                        <Typography component="p">
                             {character.species}
                         </Typography>
                     </CardContent>
@@ -60,4 +63,4 @@ const Character = function ({
     );
 };
 
-export default Character;
+export default CharacterListItem;

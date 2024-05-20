@@ -1,5 +1,5 @@
 import { PaginatedCharacter } from "@/types";
-import { Box } from "@mui/material";
+import { Grid } from "@mui/material";
 import { memo, useContext } from "react";
 import { AuthContext } from "@/components/AuthProvider.tsx";
 import { Character } from "@/components";
@@ -20,12 +20,17 @@ const CharactersList = memo(function ({ data }: CharactersListProps) {
     };
 
     return (
-        <Box
+        <Grid
+            item
+            xs={2}
+            sm={4}
+            md={4}
             columnGap={2}
             rowGap={2}
             display={"flex"}
             flexWrap={"wrap"}
             justifyContent={"space-between"}
+            alignItems="center"
         >
             {data.results.map((character) => (
                 <Character
@@ -35,7 +40,7 @@ const CharactersList = memo(function ({ data }: CharactersListProps) {
                     handleCharacterClick={handleCharacterClick}
                 ></Character>
             ))}
-        </Box>
+        </Grid>
     );
 });
 
