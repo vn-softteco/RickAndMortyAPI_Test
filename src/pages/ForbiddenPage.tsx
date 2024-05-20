@@ -1,6 +1,5 @@
 import { DefaultLayout } from "@/layouts/DefaultLayout.tsx";
 import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/types/constants.ts";
@@ -10,7 +9,7 @@ const ForbiddenPage = function () {
 
     return (
         <DefaultLayout>
-            <Box>
+            <>
                 <Typography variant="h1">Access forbidden</Typography>
                 <Button
                     variant="contained"
@@ -19,7 +18,7 @@ const ForbiddenPage = function () {
                 >
                     Go to Characters
                 </Button>
-            </Box>
+            </>
         </DefaultLayout>
     );
 };

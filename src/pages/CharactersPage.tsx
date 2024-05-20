@@ -32,14 +32,14 @@ const CharactersPage = function () {
 
     return (
         <DefaultLayout>
-            <Box>
+            <>
                 <Search names={names} onNameSelect={handleNameSelect}></Search>
-            </Box>
+            </>
 
             {isLoading && <CircularProgress />}
             {isError && <Typography variant="h1">{error.message}</Typography>}
             {data && (
-                <Box>
+                <>
                     <CharactersList data={data} />
                     <Box
                         sx={{
@@ -55,7 +55,7 @@ const CharactersPage = function () {
                             onChange={handlePageChange}
                         />
                     </Box>
-                </Box>
+                </>
             )}
         </DefaultLayout>
     );

@@ -2,7 +2,6 @@ import { DefaultValues, SubmitHandler, useForm } from "react-hook-form";
 import { SignInFormType } from "@/types";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
 import { FormControl } from "@/components";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -26,7 +25,7 @@ const LoginPage = function () {
     });
 
     return (
-        <Box>
+        <>
             <form
                 noValidate
                 style={{
@@ -56,7 +55,7 @@ const LoginPage = function () {
                     Sign in
                 </Button>
             </form>
-        </Box>
+        </>
     );
 };
 
