@@ -1,22 +1,27 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ROUTES } from "@/types/constants";
-
+import { RouteAccessChecker } from "@/components";
 import {
     LoginPage,
     CharactersPage,
     CharacterPage,
     ForbiddenPage
 } from "@/pages";
-import { RouteAccessChecker } from "@/components";
 
 const router = createBrowserRouter([
     {
+        element: <RouteAccessChecker />,
         path: ROUTES.INITIAL_ROUTE,
-        element: <LoginPage />
-    },
-    {
-        path: ROUTES.LOGIN,
-        element: <LoginPage />
+        children: [
+            {
+                path: ROUTES.INITIAL_ROUTE,
+                element: <LoginPage />,
+            },
+            {
+                path: ROUTES.LOGIN,
+                element: <LoginPage />
+            },
+        ]
     },
     {
         element: <RouteAccessChecker roles={["user", "admin"]} />,
