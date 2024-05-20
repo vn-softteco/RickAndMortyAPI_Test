@@ -2,11 +2,14 @@ import { DefaultValues, SubmitHandler, useForm } from "react-hook-form";
 import { SignInFormType } from "@/types";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
+import Box from "@mui/material/Box";
 import { FormControl } from "@/components";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useSetToken } from "@/queries/token.queries.tsx";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "@/components/AuthProvider.tsx";
 import { ROUTES } from "@/types/constants.ts";
 import { Navigate } from "react-router-dom";
@@ -23,9 +26,15 @@ const defaultValues: DefaultValues<SignInFormType> = {
 };
 
 const LoginPage = function () {
+    const [errorToastOpen, setErrorToastOpen] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(null);
     const { user } = useContext(AuthContext);
     const { mutateAsync: login, isPending } = useVerifyMockUseMutation();
     const { mutate: setToken } = useSetToken();
+
+    const handleErrorToastClose = () => {
+        setErrorToastOpen(false);
+    };
 
     const { handleSubmit, control } = useForm<SignInFormType>({
         defaultValues,
@@ -38,43 +47,59 @@ const LoginPage = function () {
                 // TODO: Think about auto navigation after token setting
                 return <Navigate to={ROUTES.CHARACTERS}></Navigate>;
             })
-            .catch((error) => {
+            .catch((error: string) => {
                 //TODO: Show toast
-                console.error("Error", error);
+                setErrorMessage(error);
+                setErrorToastOpen(true);
             });
     };
 
     if (user) return <Navigate to={ROUTES.CHARACTERS} />;
 
     return (
-        <form
-            style={{
-                display: "flex",
-                alignItems: "center",
-                flexDirection: "column"
-            }}
-            onSubmit={handleSubmit(onSubmit)}
-        >
-            <FormControl
-                name="email"
-                label="Email"
-                control={control}
-                type="email"
-                component={TextField}
-                style={{ marginBottom: "1em" }}
-            />
-            <FormControl
-                name="password"
-                label="Password"
-                type="password"
-                control={control}
-                component={TextField}
-                style={{ marginBottom: "1em" }}
-            />
-            <Button variant="contained" type="submit" disabled={isPending}>
-                Sign in
-            </Button>
-        </form>
+        <Box>
+            <Snackbar
+                open={errorToastOpen}
+                autoHideDuration={5000}
+                onClose={handleErrorToastClose}
+            >
+                <Alert
+                    onClose={handleErrorToastClose}
+                    severity="error"
+                    sx={{ width: "100%" }}
+                >
+                    {errorMessage}
+                </Alert>
+            </Snackbar>
+            <form
+                style={{
+                    display: "flex",
+                    alignItems: "center",
+                    flexDirection: "column"
+                }}
+                onSubmit={handleSubmit(onSubmit)}
+            >
+                <FormControl
+                    name="email"
+                    label="Email"
+                    control={control}
+                    type="email"
+                    component={TextField}
+                    style={{ marginBottom: "1em" }}
+                />
+                <FormControl
+                    name="password"
+                    label="Password"
+                    type="password"
+                    control={control}
+                    component={TextField}
+                    style={{ marginBottom: "1em" }}
+                />
+                <Button variant="contained" type="submit" disabled={isPending}>
+                    Sign in
+                </Button>
+            </form>
+        </Box>
     );
 };
 
