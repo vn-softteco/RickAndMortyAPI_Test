@@ -3,7 +3,7 @@ import { SignInFormType, MockUser } from "@/types";
 const users: MockUser[] = [
     {
         id: 1,
-        password: "qwerty",
+        password: "rickmortypass",
         name: "Admin",
         email: "admin@test.com",
         token:
@@ -13,7 +13,7 @@ const users: MockUser[] = [
     },
     {
         id: 2,
-        password: "qwerty",
+        password: "rickmortypass",
         name: "User",
         email: "user@test.com",
         token:
