@@ -22,6 +22,6 @@ npm run dev
 To access the application you have to sing into it. Authentication uses Mock data, so choose between these 2 users
 
 ```sh
-admin / rickmortypass
-user / rickmortypass
+admin@test.com / rickmortypass
+user@test.com / rickmortypass
 ```
