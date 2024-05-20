@@ -47,7 +47,6 @@ export default function AuthProvider({ children }: PropsWithChildren) {
     );
 
     useEffect(() => {
-        console.log("userFromToken", userFromToken);
         if (!isError) setUser(undefined);
         if (userFromToken) {
             setUser(userFromToken);

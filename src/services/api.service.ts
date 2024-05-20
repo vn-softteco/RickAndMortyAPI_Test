@@ -23,7 +23,6 @@ export function API<T>(url: string, options: RequestOptions): Promise<T> {
                 resolve(response.json());
             })
             .catch((error) => {
-                console.error("Error:", error);
                 return reject(error);
             });
     });

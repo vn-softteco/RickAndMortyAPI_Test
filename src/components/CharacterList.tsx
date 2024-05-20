@@ -15,16 +15,12 @@ const CharactersList = memo(function ({ data }: CharactersListProps) {
     const navigate = useNavigate();
 
     const handleCharacterClick = (id: number) => {
-        console.log(id);
         navigate(generatePath(ROUTES.CHARACTER_BY_ID, { id }));
     };
 
     return (
         <Grid
             item
-            xs={2}
-            sm={4}
-            md={4}
             columnGap={2}
             rowGap={2}
             display={"flex"}

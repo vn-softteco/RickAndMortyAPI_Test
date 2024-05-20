@@ -16,7 +16,7 @@ export type UserFromToken = {
 export type Character = {
     id: number;
     name: string;
-    type: string;
+    species: string;
     gender: string;
     image: string;
 };
