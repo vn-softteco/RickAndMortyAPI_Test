@@ -15,9 +15,9 @@ function RouteAccessChecker({ roles }: RouteAccessProps) {
         return <Navigate to={ROUTES.LOGIN} />;
     }
     if (user && isLoginRoute) {
-        return <Navigate to={ROUTES.CHARACTERS} />;
+        return <Navigate to={ROUTES.INITIAL_ROUTE} />;
     }
-    if (user && !roles?.includes(user.role)) {
+    if (user && roles && !roles?.includes(user.role)) {
         return <Navigate to={ROUTES.FORBIDDEN} />;
     }
     return <Outlet />;

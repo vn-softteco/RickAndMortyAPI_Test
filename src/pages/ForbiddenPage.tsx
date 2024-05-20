@@ -9,16 +9,14 @@ const ForbiddenPage = function () {
 
     return (
         <DefaultLayout>
-            <>
-                <Typography variant="h1">Access forbidden</Typography>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => navigate(ROUTES.CHARACTERS)}
-                >
-                    Go to Characters
-                </Button>
-            </>
+            <Typography variant="h1">Access forbidden</Typography>
+            <Button
+                variant="contained"
+                color="primary"
+                onClick={() => navigate(ROUTES.CHARACTERS)}
+            >
+                Go to Characters
+            </Button>
         </DefaultLayout>
     );
 };

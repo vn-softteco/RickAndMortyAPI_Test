@@ -25,37 +25,35 @@ const LoginPage = function () {
     });
 
     return (
-        <>
-            <form
-                noValidate
-                style={{
-                    display: "flex",
-                    alignItems: "center",
-                    flexDirection: "column"
-                }}
-                onSubmit={handleSubmit(login as SubmitHandler<SignInFormType>)}
-            >
-                <FormControl
-                    name="email"
-                    label="Email"
-                    control={control}
-                    type="email"
-                    component={TextField}
-                    style={{ marginBottom: "1em" }}
-                />
-                <FormControl
-                    name="password"
-                    label="Password"
-                    type="password"
-                    control={control}
-                    component={TextField}
-                    style={{ marginBottom: "1em" }}
-                />
-                <Button variant="contained" type="submit" disabled={isPending}>
-                    Sign in
-                </Button>
-            </form>
-        </>
+        <form
+            noValidate
+            style={{
+                display: "flex",
+                alignItems: "center",
+                flexDirection: "column"
+            }}
+            onSubmit={handleSubmit(login as SubmitHandler<SignInFormType>)}
+        >
+            <FormControl
+                name="email"
+                label="Email"
+                control={control}
+                type="email"
+                component={TextField}
+                style={{ marginBottom: "1em" }}
+            />
+            <FormControl
+                name="password"
+                label="Password"
+                type="password"
+                control={control}
+                component={TextField}
+                style={{ marginBottom: "1em" }}
+            />
+            <Button variant="contained" type="submit" disabled={isPending}>
+                Sign in
+            </Button>
+        </form>
     );
 };
 

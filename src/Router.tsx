@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import { ROUTES } from "@/types/constants";
 import { RouteAccessChecker } from "@/components";
 import {
@@ -14,8 +14,8 @@ const router = createBrowserRouter([
         path: ROUTES.INITIAL_ROUTE,
         children: [
             {
-                path: ROUTES.INITIAL_ROUTE,
-                element: <LoginPage />,
+                index: true,
+                element: <Navigate to={ROUTES.CHARACTERS} />,
             },
             {
                 path: ROUTES.LOGIN,
