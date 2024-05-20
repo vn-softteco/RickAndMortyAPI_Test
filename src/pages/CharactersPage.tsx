@@ -15,7 +15,7 @@ const CharactersPage = function () {
         useGetCharacters(selectedName, currentPage);
 
     const handleNameSelect = useCallback(
-        (name) => {
+        (name: string) => {
             setSelectedName(name);
             setCurrentPage(1);
         },
@@ -26,7 +26,7 @@ const CharactersPage = function () {
         setCurrentPage(page);
     };
 
-    const names = !!data ? [...new Set(data.results.map((p) => p.name))] : [];
+    const names = data ? [...new Set(data.results.map((p) => p.name))] : [];
 
     return (
         <DefaultLayout>

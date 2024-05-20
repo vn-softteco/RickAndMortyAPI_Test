@@ -2,14 +2,10 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
-import { useDeleteToken } from "@/queries/token.queries.tsx";
+import { useLogout } from "@/queries/auth.queries.tsx";
 
 const Header = (): JSX.Element => {
-    const { mutate: deleteToken } = useDeleteToken();
-
-    const logout = () => {
-        deleteToken();
-    };
+    const logout = useLogout();
 
     return (
         <Box

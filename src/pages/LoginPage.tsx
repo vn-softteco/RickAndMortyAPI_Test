@@ -8,12 +8,11 @@ import Box from "@mui/material/Box";
 import { FormControl } from "@/components";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useSetToken } from "@/queries/token.queries.tsx";
 import { useContext, useState } from "react";
 import { AuthContext } from "@/components/AuthProvider.tsx";
 import { ROUTES } from "@/types/constants.ts";
 import { Navigate } from "react-router-dom";
-import { useVerifyMockUseMutation } from "@/queries/auth.queries.tsx";
+import { useLogin } from "@/queries/auth.queries.tsx";
 
 const schema = yup.object().shape({
     email: yup.string().email().required("Email is required"),
@@ -27,10 +26,9 @@ const defaultValues: DefaultValues<SignInFormType> = {
 
 const LoginPage = function () {
     const [errorToastOpen, setErrorToastOpen] = useState(false);
-    const [errorMessage, setErrorMessage] = useState(null);
+    const [errorMessage, setErrorMessage] = useState<string>();
     const { user } = useContext(AuthContext);
-    const { mutateAsync: login, isPending } = useVerifyMockUseMutation();
-    const { mutate: setToken } = useSetToken();
+    const { mutateAsync: login, isPending } = useLogin();
 
     const handleErrorToastClose = () => {
         setErrorToastOpen(false);
@@ -41,17 +39,10 @@ const LoginPage = function () {
         resolver: yupResolver(schema)
     });
     const onSubmit: SubmitHandler<SignInFormType> = (data) => {
-        login(data)
-            .then((response) => {
-                setToken(response.token);
-                // TODO: Think about auto navigation after token setting
-                return <Navigate to={ROUTES.CHARACTERS}></Navigate>;
-            })
-            .catch((error: string) => {
-                //TODO: Show toast
-                setErrorMessage(error);
-                setErrorToastOpen(true);
-            });
+        login(data).catch((error: string) => {
+            setErrorMessage(error);
+            setErrorToastOpen(true);
+        });
     };
 
     if (user) return <Navigate to={ROUTES.CHARACTERS} />;

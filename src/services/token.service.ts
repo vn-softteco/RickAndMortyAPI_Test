@@ -1,33 +1,19 @@
 import Cookies from "js-cookie";
-import { UserFromToken } from "@/types";
-import { jwtDecode } from "jwt-decode";
 
-const setToken = (token: string): Promise<void> => {
-    return new Promise((resolve, reject) => {
-        return Cookies.set("token", token)
-            ? resolve()
-            : reject("Token set errors");
-    });
+const getToken = () => {
+    return Cookies.get("token");
 };
 
-const deleteToken = (): Promise<void> => {
-    return new Promise((resolve) => {
-        Cookies.remove("token");
-        return resolve();
-    });
+const setToken = (token: string) => {
+    Cookies.set("token", token);
 };
 
-const getAccessToken = () => Cookies.get("token");
-
-const getUserFromToken = (): Promise<UserFromToken | null> => {
-    return new Promise((resolve) => {
-        const token = getAccessToken();
-        return token ? resolve(jwtDecode<UserFromToken>(token)) : resolve(null);
-    });
+const deleteToken = () => {
+    Cookies.remove("token");
 };
 
 export default {
+    getToken,
     setToken,
-    deleteToken,
-    getUserFromToken
+    deleteToken
 };
