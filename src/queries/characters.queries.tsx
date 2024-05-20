@@ -20,7 +20,7 @@ export const useGetCharacters = (name: string | null, page = 1) => {
 
 export const useGetCharacterById = (id: string) => {
     return useQuery<Character>({
-        queryKey: ["CHARACTER", id],
+        queryKey: [API_ENDPOINTS.CHARACTERS, id],
         queryFn: () =>
             API(`${API_ENDPOINTS.CHARACTERS}/${id}`, {
                 params: {}
